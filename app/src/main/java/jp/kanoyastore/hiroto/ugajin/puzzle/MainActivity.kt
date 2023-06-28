@@ -1,10 +1,13 @@
 package jp.kanoyastore.hiroto.ugajin.puzzle
 
+import android.annotation.SuppressLint
+import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.util.Log
 import android.view.View
+import android.widget.FrameLayout
 import android.widget.ImageButton
 import androidx.core.content.ContextCompat
 import jp.kanoyastore.hiroto.ugajin.puzzle.databinding.ActivityMainBinding
@@ -67,11 +70,13 @@ class MainActivity : AppCompatActivity() {
         coroutineScope.cancel() // Coroutineのキャンセル
     }
 
+    @SuppressLint("WrongViewCast")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
+
 
         var shuffledDrawableArray = drawableArray.clone().apply {
             shuffle()
