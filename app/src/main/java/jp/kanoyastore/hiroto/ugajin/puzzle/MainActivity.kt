@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.ImageButton
+import androidx.core.content.ContextCompat
 import jp.kanoyastore.hiroto.ugajin.puzzle.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -30,7 +31,6 @@ class MainActivity : AppCompatActivity() {
         R.drawable.a15
     )
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -47,7 +47,6 @@ class MainActivity : AppCompatActivity() {
             val imageButton = findViewById<ImageButton>(buttonId)
             val letterImage = shuffledDrawableArray[i]
             imageButton.setImageResource(letterImage)
-
         }
 
         // カードがクリックされたときの処理
@@ -56,10 +55,34 @@ class MainActivity : AppCompatActivity() {
             val imageButton = findViewById<ImageButton>(buttonId)
 
             imageButton.setOnClickListener {
-                Log.d("TAG", "button${i}がタップされました")
 
+                    val nextButtonId = resources.getIdentifier("button${i + 1}", "id", packageName)
+                    val nextButton = findViewById<ImageButton>(nextButtonId)
+                // タップされたボタンと次のボタンの画像リソースIDを取得
+                    val tappedImageResourceId = shuffledDrawableArray[i]
+                    val nextImageResourceId = shuffledDrawableArray[i + 1]
+
+                if (i <= 14 && nextImageResourceId == R.drawable.a15) {
+
+                    // 画像リソースIDから画像を取得
+                    val tappedImage = resources.getDrawable(tappedImageResourceId, null)
+                    val nextImage = resources.getDrawable(nextImageResourceId, null)
+
+                    // 取得した画像を次のボタンに設定
+                    nextButton.setImageDrawable(tappedImage)
+                    //次のボタンの画像をタップしたボタンに設定
+                    imageButton.setImageDrawable(nextImage)
+
+//                   // 配列の要素の入れ替え
+
+                        val temp = shuffledDrawableArray[i]
+                       shuffledDrawableArray[i] = shuffledDrawableArray.getOrElse(i + 1) { temp }
+//                      shuffledDrawableArray[i] = shuffledDrawableArray[R.drawable.a15]
+
+                        shuffledDrawableArray[i + 1] = temp
+
+                }
             }
         }
-
     }
 }
