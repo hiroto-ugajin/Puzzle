@@ -57,7 +57,7 @@ class MainActivity : AppCompatActivity() {
 
     fun delayEnableButtons() {
         coroutineScope.launch {
-            delay(500) // 0.5秒待つ
+            delay(200) // 0.2秒待つ
             enableAllImageButtons()
         }
     }
@@ -138,7 +138,7 @@ class MainActivity : AppCompatActivity() {
                     }
                 }
 
-                if (4 <= i) {
+                if (4 <= i && !(i == 9 || i == 10)) {
 
                         val upperButtonId =
                             resources.getIdentifier("button${i - 4}", "id", packageName)
@@ -159,7 +159,7 @@ class MainActivity : AppCompatActivity() {
                         }
                 }
 
-                if (i <= 11) {
+                if (i <= 11 && !(i == 5 || i == 6)) {
 
                     val belowButtonId =
                         resources.getIdentifier("button${i + 4}", "id", packageName)
