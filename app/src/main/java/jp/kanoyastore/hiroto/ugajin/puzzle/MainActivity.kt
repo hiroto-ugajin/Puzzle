@@ -179,6 +179,33 @@ class MainActivity : AppCompatActivity() {
                         }
                 }
 
+                if (i <= 11) {
+
+                    val belowButtonId =
+                        resources.getIdentifier("button${i + 4}", "id", packageName)
+                    val belowButton = findViewById<ImageButton>(belowButtonId)
+                    val belowImageResourceId = shuffledDrawableArray[i + 4]
+
+                    if (belowImageResourceId == R.drawable.a15) {
+                        val tappedImage = resources.getDrawable(tappedImageResourceId, null)
+                        val belowImage = resources.getDrawable(belowImageResourceId, null)
+
+                        // 取得した画像を前のボタンに設定
+                        belowButton.setImageDrawable(tappedImage)
+                        //前のボタンの画像をタップしたボタンに設定
+                        imageButton.setImageDrawable(belowImage)
+
+                        // 配列の要素の入れ替え
+                        val temp = shuffledDrawableArray[i]
+                        shuffledDrawableArray[i] =
+                            shuffledDrawableArray.getOrElse(i + 4) { temp }
+                        shuffledDrawableArray[i + 4] = temp
+                    }
+                }
+
+
+
+
             }
         }
     }
