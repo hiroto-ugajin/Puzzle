@@ -1,6 +1,7 @@
 package jp.kanoyastore.hiroto.ugajin.puzzle
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -70,6 +71,10 @@ class MainActivity : AppCompatActivity() {
         coroutineScope.cancel() // Coroutineのキャンセル
     }
 
+    var shuffledDrawableArray = drawableArray.clone().apply {
+        shuffle()
+    }
+
     @SuppressLint("WrongViewCast")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -77,9 +82,23 @@ class MainActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
 
+        binding.commentButton.setOnClickListener {
+            val intent = Intent(this, SecondActivity::class.java)
+            startActivity(intent)
+        }
 
-        var shuffledDrawableArray = drawableArray.clone().apply {
-            shuffle()
+        binding.reStartButton.setOnClickListener {
+
+            shuffledDrawableArray = drawableArray.clone().apply {
+                shuffle()
+            }
+
+            for (i in 0 until 16) {
+                val buttonId = resources.getIdentifier("button$i", "id", packageName)
+                val imageButton = findViewById<ImageButton>(buttonId)
+                val letterImage = shuffledDrawableArray[i]
+                imageButton.setImageResource(letterImage)
+            }
         }
 
         // カードの画像をセットする
