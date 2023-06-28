@@ -61,6 +61,10 @@ class MainActivity : AppCompatActivity() {
                 // タップされたボタンと次のボタンの画像リソースIDを取得
                     val tappedImageResourceId = shuffledDrawableArray[i]
                     val nextImageResourceId = shuffledDrawableArray[i + 1]
+                    val foreImageResourceId = shuffledDrawableArray[i - 1]
+
+                val foreButtonId = resources.getIdentifier("button${i - 1}", "id", packageName)
+                val foreButton = findViewById<ImageButton>(foreButtonId)
 
                 if (i <= 14 && nextImageResourceId == R.drawable.a15) {
 
@@ -82,6 +86,27 @@ class MainActivity : AppCompatActivity() {
                         shuffledDrawableArray[i + 1] = temp
 
                 }
+
+                if (1 <= i && foreImageResourceId == R.drawable.a15) {
+
+                    val tappedImage = resources.getDrawable(tappedImageResourceId, null)
+                    val foreImage = resources.getDrawable(foreImageResourceId, null)
+
+                    // 取得した画像を前のボタンに設定
+                    foreButton.setImageDrawable(tappedImage)
+                    //前のボタンの画像をタップしたボタンに設定
+                    imageButton.setImageDrawable(foreImage)
+
+                    // 配列の要素の入れ替え
+
+                    val temp = shuffledDrawableArray[i]
+                    shuffledDrawableArray[i] = shuffledDrawableArray.getOrElse(i - 1) { temp }
+                    shuffledDrawableArray[i - 1] = temp
+
+
+
+                }
+
             }
         }
     }
