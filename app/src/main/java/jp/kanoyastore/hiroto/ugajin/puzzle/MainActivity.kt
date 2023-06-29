@@ -2,18 +2,11 @@ package jp.kanoyastore.hiroto.ugajin.puzzle
 
 import android.annotation.SuppressLint
 import android.content.Intent
-import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.Handler
-import android.util.Log
-import android.view.View
-import android.widget.FrameLayout
 import android.widget.ImageButton
-import androidx.core.content.ContextCompat
 import jp.kanoyastore.hiroto.ugajin.puzzle.databinding.ActivityMainBinding
 import kotlinx.coroutines.*
-import kotlin.coroutines.CoroutineContext
 
 class MainActivity : AppCompatActivity() {
 
@@ -201,7 +194,7 @@ class MainActivity : AppCompatActivity() {
                         shuffledDrawableArray[i] =
                             shuffledDrawableArray.getOrElse(i + 4) { temp }
                         shuffledDrawableArray[i + 4] = temp
-                    }
+                }
                 }
             }
         }
